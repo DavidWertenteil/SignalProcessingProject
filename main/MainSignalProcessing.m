@@ -1,0 +1,10 @@
+% 
+LoadRawData;
+
+%%
+ExtractAllFeatures;
+
+%%
+NeuralNetworkClassifier;
+
+%%
