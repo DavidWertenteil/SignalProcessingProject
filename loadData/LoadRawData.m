@@ -23,9 +23,11 @@ convertFromJson
 % The frequency
 fs=50;
 
-%the acts
-actnames={'Walking','DragLimp','JumpLimp','AustoLimp'};
+% The acts
+mA = ?ActivityLabels;
+actnames = {mA.EnumerationMemberList(:).Name};
 actlabels=actnames;
+
 myindex=1;
 %delete last 3 seconds(the fs is not fixed) - beacuse the fs isnt fixed,
 %for percaution we remove double
