@@ -3,13 +3,22 @@
 % Classification through Neural networks
 %% Train Neural Network using computed features on all buffers
 % Load pre-computed features for all signal buffers available at once
-load('features.mat')
+load('features_fallRemoved.mat')
 % Load buffered signals (here only using known activity IDs for buffers)
-load('formatedData.mat')
+load('formatedData_fallRemoved.mat')
+% Correct data orientation
+
+% Divide all data to train and test 
+[trainInd,testInd] = dividerand(size(feat,1),0.7,0.3);
+
 % Correct data orientation
 X = feat';
 y = y';
-tgt = dummyvar(y)';
+
+Xtrain = X(:,trainInd);
+ytrain = y(:,trainInd);
+tgtTrain = dummyvar(ytrain)';
+
 % Reset random number generators
 rng default
 
@@ -17,13 +26,9 @@ rng default
 net = patternnet(18);
 
 % Train network
-net = train(net, X, tgt);
+net = train(net, Xtrain, tgtTrain);
 
-%% Validate network more systematically, by selecting a test subset
-
-% Randomly divide data between training, test and validation sets
-[trainInd,valInd,testInd] = dividerand(size(X,2),0.7,0.15,0.15);
-
+% Test network
 Xtest = X(:,testInd);
 ytest = y(:,testInd);
 tgttest = dummyvar(ytest)';
@@ -35,7 +40,7 @@ scoretest = net(Xtest);
 figure
 plotconfusion(tgttest,scoretest)
 
-save('.\trainedModelsData\test_NN_Validation.mat','net','actnames');
+save('..\trainedModelsData\finalNN__fallRemoved.mat','net','actnames');
 %%
 % First test
 ntests = 1000;

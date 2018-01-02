@@ -21,8 +21,8 @@ X = newf;
 feat = X;
 featlabels = getFeatureNames;
 
-save('.\featuredData\features.mat','feat','featlabels')
-
+save('..\featuredData\features_fallRemoved.mat','feat','featlabels')
+clear;
 
 function featureNames = getFeatureNames
 
