@@ -37,6 +37,8 @@ tgttest = dummyvar(ytest)';
 scoretest = net(Xtest);
 
 % Display confusion matrix using results
+[confusionValue, confMat, ind, per] = confusion(tgttest,scoretest);
+
 figure
 plotconfusion(tgttest,scoretest)
 
