@@ -1,8 +1,8 @@
 
 % Decision Tree Model
 %%
-load('features_fallRemoved.mat');
-load('formatedData_fallRemoved.mat');
+load('features_4_acty.mat');
+load('formatedData_4_acty.mat');
 
 %%
 [trainInd,testInd] = dividerand(size(feat,1),0.7,0.3);
@@ -46,6 +46,6 @@ tgtTest = y(testInd);
 [matrix, targets] = confusionmat(tgtTest,label);
 
 
-save('.\trainedModelsData\finalDT__fallRemoved.mat','tree','actnames');
+save('.\trainedModelsData\finalDTfeatures_4_acty.mat','tree','actnames');
 %% For improvement, read more: https://www.mathworks.com/help/stats/classification-trees.html
 
