@@ -1,7 +1,7 @@
 function ExtractAllFeatures
 
 % Load pre-buffered acceleration data
-load('formatedData.mat')
+load('formatedData_4_acty.mat')
 
 % Expect as many rows of features as number of available data buffers
 newf = zeros(size(atx,1),66);
@@ -21,7 +21,7 @@ X = newf;
 feat = X;
 featlabels = getFeatureNames;
 
-save('..\featuredData\features_fallRemoved.mat','feat','featlabels')
+save('.\featuredData\features_4_acty.mat','feat','featlabels')
 clear;
 
 function featureNames = getFeatureNames
