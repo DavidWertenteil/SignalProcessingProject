@@ -34,6 +34,7 @@ for index = 1 : length(atx)
     end
 end
 %%
+% To remove https://www.mathworks.com/help/nnet/ref/removerows.html
 % randperm(minNumnumOfRecords,size(ac1Atx,1))
 acts = [ac1Atx, ac2Atx, ac3Atx, ac4Atx];
 numOfActsForTest = minNumnumOfRecords * length(actnames);
