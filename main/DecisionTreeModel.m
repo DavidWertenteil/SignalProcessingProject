@@ -46,6 +46,6 @@ tgtTest = y(testInd);
 [matrix, targets] = confusionmat(tgtTest,label);
 
 
-save('.\trainedModelsData\finalDTfeatures_4_acty.mat','tree','actnames');
+%save('.\trainedModelsData\finalDTfeatures_4_acty.mat','tree','actnames');
 %% For improvement, read more: https://www.mathworks.com/help/stats/classification-trees.html
 
