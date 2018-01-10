@@ -44,7 +44,7 @@ aty=[];
 atz=[];
 actmat=[];
 
-%this divide the data to sections in constant size, remove the leftover, and divide by gravity
+%This divide the data to sections in constant size, remove the leftover, and divide by gravity
 %in order to change the size of each section, change the "line" parameter
 line=128;
 for index =1:length(subjects)
