@@ -60,8 +60,12 @@ end
 y=actmat(:,1);
 
 t = (1/fs) * (0:line-1)';
-save('.\rawData\formatedData_4_acty.mat','atx','aty','atz','actlabels','actnames','fs','t','y');
+
+save('.\rawData\formatedData_3_acty.mat','atx','aty','atz',...
+    'actlabels','actnames','fs','t','y','line');
 
 clear;
+
+setDataSize;
     
 

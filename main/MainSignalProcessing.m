@@ -12,6 +12,6 @@ NeuralNetworkModel;
 
 %%
 % Train a Decision Tree model on the features 
-DecisionTreeModel
+% DecisionTreeModel
 
 %%

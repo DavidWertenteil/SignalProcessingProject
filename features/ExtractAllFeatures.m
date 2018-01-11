@@ -1,27 +1,34 @@
 function ExtractAllFeatures
 
 % Load pre-buffered acceleration data
-load('formatedData_4_acty.mat')
+load('dividedFormatedData_3_acty.mat')
 
 % Expect as many rows of features as number of available data buffers
-newf = zeros(size(atx,1),66);
+train = zeros(length(trainTarget),66);
+test = zeros(length(testTarget),66);
 
 tstart = tic;
 
-for n = 1:size(atx,1)
-    % Extract features for current data buffers
-    newf(n,:) = featuresFromBuffer(atx(n,:), aty(n,:), atz(n,:), fs); 
+for n = 1:length(trainTarget)
+    % Extract features for train data buffers
+    train(n,:) = featuresFromBuffer(train_atx(n,:), train_aty(n,:), train_atz(n,:), fs); 
+end
+
+for n = 1:length(testTarget)
+    % Extract features for test data buffers
+    test(n,:) = featuresFromBuffer(test_atx(n,:), test_aty(n,:), test_atz(n,:), fs); 
 end
 
 disp('Done!')
 fprintf('Total time elapsed: %g seconds\n', toc(tstart))
 
 % Save extracted features to a data file
-X = newf;
-feat = X;
+featTrain = train;
+featTest = test;
 featlabels = getFeatureNames;
 
-save('.\featuredData\features_4_acty.mat','feat','featlabels')
+save('.\featuredData\features_3_acty.mat','featTrain','featTest',...
+    'trainTarget','testTarget','featlabels')
 clear;
 
 function featureNames = getFeatureNames
