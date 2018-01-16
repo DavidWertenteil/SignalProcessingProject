@@ -17,7 +17,7 @@ tgtTrain = dummyvar(ytrain)';
 rng default
 
 % Initialize a Neural Network with 18 nodes in hidden layer
-net = patternnet([66, 18, 66]);
+net = patternnet(18);
 
 % Train network
 net = train(net, Xtrain, tgtTrain);
@@ -33,8 +33,8 @@ scoretest = net(Xtest);
 % Display confusion matrix using results
 % [confusionValue, confMat, ind, per] = confusion(tgttest,scoretest);
 % 
-% figure
-% plotconfusion(tgttest, scoretest)
+figure
+plotconfusion(tgttest, scoretest)
 
 mA = ?ActivityLabels;
 actnames = {mA.EnumerationMemberList(:).Name};
