@@ -2,8 +2,15 @@
 
 % This file takes the default from-json table that saved in "dataFromWeb" and convert it to
 % more fitted matrix and save it in "myFormatData.mat"
-
 %%
+% The frequency
+fs=50;
+
+% The acts
+mA = ?ActivityLabels;
+actnames = {mA.EnumerationMemberList(:).Name};
+actlabels=actnames;
+
 names =  fieldnames(dataFromWeb(1));
 
 for i = 1:numel(names)
@@ -19,4 +26,7 @@ for i = 1:numel(names)
     data(i).totalacc=accvec;
     clear('idvec','accvec');
 end
+
+save('..\rawData\dataConvertedFromJson.mat','data','fs','actlabels');
+
 

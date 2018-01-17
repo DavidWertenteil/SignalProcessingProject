@@ -69,24 +69,18 @@ numOfEachForTes = zeros(1 , length(numOfRecords));
 for i = 1:length(numOfRecords)
     numOfEachForTes(1, i) = numOfRecords(i) - minNumOfRecords;
 end
-k = 1; t = 1;
+k = 1; l = 1;
 for i = 1 : length(acts(:,1))
     test_atx(i, :) = acts(i, 1: line);
     test_aty(i, :) = acts(i, line + 1: line*2);
     test_atz(i, :) = acts(i, line*2 + 1: line*3);
-    if (numOfEachForTes(k) < t)
-        t = 1;
+    if (numOfEachForTes(k) < l)
+        l = 1;
         k = k + 1;
     end
     testTarget(i, 1) = k;
-    t = t + 1; 
+    l = l + 1; 
 end
-
-save('.\rawData\dividedFormatedData_3_acty.mat',...
-    'train_atx','train_aty','train_atz','trainTarget',...
-    'test_atx','test_aty','test_atz','testTarget', 'fs', 't');
-
-clear;
 
 % ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 function at_x_y_z = insertToActs(atx, aty, atz, lineSize, index)

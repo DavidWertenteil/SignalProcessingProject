@@ -1,15 +1,11 @@
 
 % Decision Tree Model
 %%
-load('features_4_acty.mat');
-load('formatedData_4_acty.mat');
+load('features_3_acty.mat')
 
 %%
-[trainInd,testInd] = dividerand(size(feat,1),0.7,0.3);
-
-X = feat;
-Xtrain = X(trainInd, :);
-Ytrain = y(trainInd);
+Xtrain = featTrain;
+Ytrain = trainTarget;
 
 %% Train network
 % 
@@ -23,8 +19,8 @@ tree = fitctree(Xtrain, Ytrain);
 
 %% Test
 
-Xtest = X(testInd, :);
-tgtTest = y(testInd);
+Xtest = featTest;
+tgtTest = testTarget;
 
 % Recieves model and data and returns:
 % 'label' - Predicted lables

@@ -16,17 +16,16 @@
 %%
 %read data from local
 load('dataFromWeb.mat');
+
 %%
 % Format the data from json to our matrix
 convertFromJson
-%%
-% The frequency
-fs=50;
 
-% The acts
-mA = ?ActivityLabels;
-actnames = {mA.EnumerationMemberList(:).Name};
-actlabels=actnames;
+
+[acc, actid, actlabels, t, fs] = getRawAcceleration(...
+    'SubjectID',1,...
+    'AccelerationType','total',...
+    'Component','x');
 
 myindex=1;
 %delete last 3 seconds(the fs is not fixed) - beacuse the fs isnt fixed,
@@ -59,13 +58,11 @@ for index =1:length(subjects)
 end
 y=actmat(:,1);
 
-t = (1/fs) * (0:line-1)';
-
-save('.\rawData\formatedData_3_acty.mat','atx','aty','atz',...
-    'actlabels','actnames','fs','t','y','line');
-
-clear;
-
 setDataSize;
+
+save('..\rawData\dividedFormatedData_3_acty.mat',...
+    'train_atx','train_aty','train_atz','trainTarget',...
+    'test_atx','test_aty','test_atz','testTarget', 'fs', 't');
+
     
 
