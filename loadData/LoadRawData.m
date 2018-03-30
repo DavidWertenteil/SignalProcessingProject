@@ -12,7 +12,7 @@
 %options = weboptions('ContentType','json');
 %dataFromWeb=webread('https://collectsensorsdata.firebaseio.com/data/fs-50-v2/samples/rightPocket/accelerometer.json', options);
 %%
-%save('./rawData/dataFromWeb.mat','dataFromWeb');
+%save('../rawData/dataFromWeb.mat','dataFromWeb');
 %%
 %read data from local
 load('dataFromWeb.mat');

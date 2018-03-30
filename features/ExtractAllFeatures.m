@@ -27,7 +27,7 @@ featTrain = train;
 featTest = test;
 featlabels = getFeatureNames;
 
-save('.\featuredData\features_3_acty.mat','featTrain','featTest',...
+save('..\featuredData\features_3_acty.mat','featTrain','featTest',...
     'trainTarget','testTarget','featlabels')
 clear;
 

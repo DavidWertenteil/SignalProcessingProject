@@ -36,7 +36,7 @@ net = train(net, Xtrain, tgtTrain);
 % figure
 % plotconfusion(tgttest, scoretest)
 % 
-% save('.\trainedModelsData\finalNN_3_acty.mat','net','actnames');
+save('..\trainedModelsData\finalNN_3_acty.mat','net','actnames');
 % %
 % 
 load('dividedFormatedData_3_acty.mat');
