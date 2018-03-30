@@ -45,3 +45,23 @@ tgtTest = testTarget;
 save('..\trainedModelsData\finalDTfeatures_4_acty.mat','tree','actnames');
 %% For improvement, read more: https://www.mathworks.com/help/stats/classification-trees.html
 
+%% ------------------------- Forest ---------------------------------------
+%
+% https://www.mathworks.com/help/stats/treebagger.html
+% http://kawahara.ca/matlab-treebagger-example/
+% -------------------------------------------------------------------------
+rng default
+numberOfTrees = 50;
+forest = TreeBagger(numberOfTrees, featTrain, trainTarget,...
+    'OOBPrediction','on','Method', 'classification');
+
+pred = forest.predict(featTest);
+pred = str2double(pred);
+[matr, targe] = confusionmat(testTarget,pred);
+figure;
+oobErrorBaggedEnsemble = oobError(forest);
+plot(oobErrorBaggedEnsemble)
+xlabel 'Number of grown trees';
+ylabel 'Out-of-bag classification error';
+
+
