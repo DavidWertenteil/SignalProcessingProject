@@ -27,6 +27,6 @@ for i = 1:numel(names)
     clear('idvec','accvec');
 end
 
-save('..\rawData\dataConvertedFromJson.mat','data','fs','actlabels');
+save('.\rawData\dataConvertedFromJson.mat','data','fs','actlabels');
 
 

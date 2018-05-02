@@ -4,9 +4,17 @@
 load('features_3_acty.mat')
 
 %%
-Xtrain = featTrain;
-Ytrain = trainTarget;
+% Xtrain = featTrain;
+% Ytrain = trainTarget;
+% 
+% Xtest = featTest;
+% tgtTest = testTarget;
 
+Xtrain = featTest;
+Ytrain = testTarget;
+ 
+Xtest = featTrain;
+tgtTest = trainTarget;
 %% Train network
 % 
 % Tree model: 
@@ -19,8 +27,8 @@ tree = fitctree(Xtrain, Ytrain);
 
 %% Test
 
-Xtest = featTest;
-tgtTest = testTarget;
+% Xtest = featTest;
+% tgtTest = testTarget;
 
 % Recieves model and data and returns:
 % 'label' - Predicted lables
@@ -42,7 +50,7 @@ tgtTest = testTarget;
 [matrix, targets] = confusionmat(tgtTest,label);
 
 
-save('..\trainedModelsData\finalDTfeatures_4_acty.mat','tree','actnames');
+save('.\trainedModelsData\finalDTfeatures_3_acty.mat','tree','actnames');
 %% For improvement, read more: https://www.mathworks.com/help/stats/classification-trees.html
 
 %% ------------------------- Forest ---------------------------------------
@@ -50,18 +58,18 @@ save('..\trainedModelsData\finalDTfeatures_4_acty.mat','tree','actnames');
 % https://www.mathworks.com/help/stats/treebagger.html
 % http://kawahara.ca/matlab-treebagger-example/
 % -------------------------------------------------------------------------
-rng default
-numberOfTrees = 50;
-forest = TreeBagger(numberOfTrees, featTrain, trainTarget,...
-    'OOBPrediction','on','Method', 'classification');
-
-pred = forest.predict(featTest);
-pred = str2double(pred);
-[matr, targe] = confusionmat(testTarget,pred);
-figure;
-oobErrorBaggedEnsemble = oobError(forest);
-plot(oobErrorBaggedEnsemble)
-xlabel 'Number of grown trees';
-ylabel 'Out-of-bag classification error';
+% rng default
+% numberOfTrees = 50;
+% forest = TreeBagger(numberOfTrees, featTrain, trainTarget,...
+%     'OOBPrediction','on','Method', 'classification');
+% 
+% pred = forest.predict(featTest);
+% pred = str2double(pred);
+% [matr, targe] = confusionmat(testTarget,pred);
+% figure;
+% oobErrorBaggedEnsemble = oobError(forest);
+% plot(oobErrorBaggedEnsemble)
+% xlabel 'Number of grown trees';
+% ylabel 'Out-of-bag classification error';
 
 
