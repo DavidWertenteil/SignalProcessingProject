@@ -1,7 +1,6 @@
 
 %%
 testSize = 0.8;
-load('formatedData_3_acty.mat');
 h = histogram(y);
 minNumOfRecords = min(h.Values);
 minNumOfRecords = int16(minNumOfRecords * testSize);
