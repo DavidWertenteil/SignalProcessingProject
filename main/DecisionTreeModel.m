@@ -22,8 +22,10 @@ tgtTest = trainTarget;
 rng default
 tree = fitctree(Xtrain, Ytrain);
 
+cvmodel = crossval(tree);
+L = kfoldLoss(cvmodel)
 % Use view(tree) to see the decision tree
-% view(tree, 'Mode', 'Graph') to see the graph
+view(tree, 'Mode', 'Graph') % To see the graph
 
 %% Test
 
@@ -50,7 +52,7 @@ tree = fitctree(Xtrain, Ytrain);
 [matrix, targets] = confusionmat(tgtTest,label);
 
 
-save('.\trainedModelsData\finalDTfeatures_3_acty.mat','tree','actnames');
+save('.\trainedModelsData\finalDTfeatures_3_acty.mat','tree');
 %% For improvement, read more: https://www.mathworks.com/help/stats/classification-trees.html
 
 %% ------------------------- Forest ---------------------------------------
@@ -58,18 +60,20 @@ save('.\trainedModelsData\finalDTfeatures_3_acty.mat','tree','actnames');
 % https://www.mathworks.com/help/stats/treebagger.html
 % http://kawahara.ca/matlab-treebagger-example/
 % -------------------------------------------------------------------------
-% rng default
-% numberOfTrees = 50;
-% forest = TreeBagger(numberOfTrees, featTrain, trainTarget,...
-%     'OOBPrediction','on','Method', 'classification');
-% 
-% pred = forest.predict(featTest);
-% pred = str2double(pred);
-% [matr, targe] = confusionmat(testTarget,pred);
-% figure;
-% oobErrorBaggedEnsemble = oobError(forest);
-% plot(oobErrorBaggedEnsemble)
-% xlabel 'Number of grown trees';
-% ylabel 'Out-of-bag classification error';
+rng default
+numberOfTrees = 100;
+forest = TreeBagger(numberOfTrees, Xtrain, Ytrain,...
+    'OOBPrediction','on','Method', 'classification');
+% cvmodel = crossval(forest);
+% L = kfoldLoss(cvmodel)
+
+pred = forest.predict(Xtest);
+pred = str2double(pred);
+[matr, targe] = confusionmat(tgtTest,pred);
+figure;
+oobErrorBaggedEnsemble = oobError(forest);
+plot(oobErrorBaggedEnsemble)
+xlabel 'Number of grown trees';
+ylabel 'Out-of-bag classification error';
 
 

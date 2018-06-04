@@ -14,7 +14,7 @@ for i = 1: length(numOfRecords)
     last = last + numOfRecords(i);
 end
 
-acts = zeros(length(atx), line * 3);
+acts = zeros(length(atx), line * 3 );
 %%
 % Insert all database to the matrix
 for i = 1 : length(y)
@@ -22,6 +22,7 @@ for i = 1 : length(y)
         insertToActs(atx, aty, atz, line, i);
     tempNumOfRecords(1, y(i)) = tempNumOfRecords(1, y(i)) + 1;
 end
+
 %%
 % To remove https://www.mathworks.com/help/nnet/ref/removerows.html
 % randperm(minNumnumOfRecords,size(ac1Atx,1))
@@ -83,7 +84,7 @@ end
 
 % ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 function at_x_y_z = insertToActs(atx, aty, atz, lineSize, index)
-    at_x_y_z = zeros(1, lineSize * 3);
+    at_x_y_z = zeros(1, lineSize * 3 );
     at_x_y_z(1, 1:lineSize) = atx(index,:);
     at_x_y_z(1, lineSize+1:lineSize*2) = aty(index,:);
     at_x_y_z(1, lineSize*2+1:lineSize*3) = atz(index,:); 

@@ -59,7 +59,6 @@ end
 y=actmat(:,1);
 
 setDataSize;
-
 save('.\rawData\dividedFormatedData_3_acty.mat',...
     'train_atx','train_aty','train_atz','trainTarget',...
     'test_atx','test_aty','test_atz','testTarget', 'fs', 't');
