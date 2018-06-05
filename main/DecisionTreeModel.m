@@ -47,10 +47,10 @@ save('..\trainedModelsData\finalDTfeatures_3_acty.mat','simpleTree', 'simpleTree
 rng default
 
 % Control Tree Depth
-maxNumSplits = 25;
-minLeafSize = 5;
+maxNumSplits = 10;
+minLeafSize = 2;
 minParentSize = 2;
-
+%%
 parameterTree = fitctree(Xtrain, Ytrain,...
     'MinLeafSize', minLeafSize,...
     'MaxNumSplits',maxNumSplits,...
@@ -64,10 +64,7 @@ parameterTree = fitctree(Xtrain, Ytrain,...
  
 %% Cross validation tree
 
-combineX = Xtrain + Xtest;
-combineY = Ytest + tgtTest;
-
-crossValTree = fitctree(combineX, combineY,...
+crossValTree = fitctree(Xtrain, Ytrain,...
     'MinLeafSize', minLeafSize,...
     'MaxNumSplits',maxNumSplits,...
     'MinParentSize', minParentSize,...
@@ -77,11 +74,7 @@ predicCrossTree = kfoldPredict(crossValTree);
 %Mdl = fitctree(Xtrain,Ytrain,'OptimizeHyperparameters','auto')
 %pred = predict(Mdl, Xtest);
 %pred = str2double(pred);
-[matr, targe] = confusionmat(combineY,predicCrossTree);
-%cvmodel = crossval(tree);
-%L = kfoldLoss(cvmodel);
-% Use view(tree) to see the decision tree
-%view(tree, 'Mode', 'Graph') % To see the graph
+[matr, targe] = confusionmat(Ytrain,predicCrossTree);
 
 %% For improvement, read more: https://www.mathworks.com/help/stats/classification-trees.html
 
@@ -94,8 +87,6 @@ rng default
 numberOfTrees = 100;
 forest = TreeBagger(numberOfTrees, Xtrain, Ytrain,...
     'OOBPrediction','on','Method', 'classification');
-% cvmodel = crossval(forest);
-% L = kfoldLoss(cvmodel)
 
 pred = forest.predict(Xtest);
 pred = str2double(pred);
