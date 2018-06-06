@@ -1,4 +1,33 @@
+load carsmall
+%%
+Cylinders = categorical(Cylinders);
+Mfg = categorical(cellstr(Mfg));
+Model_Year = categorical(Model_Year);
+X = table(Acceleration,Cylinders,Displacement,Horsepower,Mfg,...
+    Model_Year,Weight,MPG);
+%%
+rng('default'); % For reproducibility
 
+numCylinders = numel(categories(Cylinders));
+
+numMfg = numel(categories(Mfg));
+numModelYear = numel(categories(Model_Year));
+
+Mdl = TreeBagger(200,X,'MPG','Method','regression','Surrogate','on',...
+    'PredictorSelection','curvature','OOBPredictorImportance','on');
+t2 = Mdl{2};
+
+imp = Mdl.OOBPermutedPredictorDeltaError;
+Mdl.PredictorNames
+figure;
+bar(imp);
+title('Curvature Test');
+ylabel('Predictor importance estimates');
+xlabel('Predictors');
+h = gca;
+h.XTickLabel = Mdl.PredictorNames;
+h.XTickLabelRotation = 45;
+h.TickLabelInterpreter = 'none';
 % Decision Tree Model
 %%
 load('features_3_acty.mat')
@@ -41,7 +70,7 @@ simpleTree = fitctree(Xtrain, Ytrain);
 % Display confusion matrix using results
 [simpleTreeConfMatrix, simpleTreeTargets] = confusionmat(tgtTest,simpleTreeLabel);
 
-save('..\trainedModelsData\finalDTfeatures_3_acty.mat','simpleTree', 'simpleTreeConfMatrix');
+save('.\trainedModelsData\finalDTfeatures_3_acty.mat','simpleTree', 'simpleTreeConfMatrix');
 
 %% Tree with parameters
 rng default
@@ -84,9 +113,10 @@ predicCrossTree = kfoldPredict(crossValTree);
 % http://kawahara.ca/matlab-treebagger-example/
 % -------------------------------------------------------------------------
 rng default
-numberOfTrees = 100;
+numberOfTrees = 20;
 forest = TreeBagger(numberOfTrees, Xtrain, Ytrain,...
-    'OOBPrediction','on','Method', 'classification');
+    'OOBPrediction','on','Method', 'classification',...
+    'PredictorSelection','curvature','OOBPredictorImportance','on');
 
 pred = forest.predict(Xtest);
 pred = str2double(pred);
@@ -97,4 +127,14 @@ plot(oobErrorBaggedEnsemble)
 xlabel 'Number of grown trees';
 ylabel 'Out-of-bag classification error';
 
+imp = forest.OOBPermutedPredictorDeltaError;
 
+figure;
+bar(imp);
+title('Curvature Test');
+ylabel('Predictor importance estimates');
+xlabel('Predictors');
+h = gca;
+h.XTickLabel = forest.PredictorNames;
+h.XTickLabelRotation = 45;
+h.TickLabelInterpreter = 'none';
