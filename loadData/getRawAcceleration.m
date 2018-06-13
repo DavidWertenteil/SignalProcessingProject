@@ -1,8 +1,8 @@
 function [acc, actid, actlabels, t, fs] = getRawAcceleration(varargin) %#ok<STOUT>
 
+load('dataConvertedFromJson.mat');
+
 % creates: subjects, fs, actlabels
-%load('RecordedAccelerationsBySubject.mat')
-load('dataConvertedFromJson.mat')
 p = inputParser;
 
 defaultAccelerationType = 'total';

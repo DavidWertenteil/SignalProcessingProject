@@ -1,4 +1,4 @@
-% Load The Data 
+%% Load The Data 
 % This file read tada that we already saved from network - named: myRawData-date,
 %   or you can read the data from the web - firebase, with the commend "webread"
 
@@ -6,15 +6,11 @@
 % mannipulate the data a little more, like remove the last 3 second that can
 % be a noise, and divide by G=9.2
 % also here the size of each unit is decided by the "line" parameter
-%%
-
-%to read data from  web and save it locally
-%options = weboptions('ContentType','json');
+%% Read data from  web and save it locally
 %dataFromWeb=webread('https://collectsensorsdata.firebaseio.com/data/fs-50-v2/samples/rightPocket/accelerometer.json', options);
-%%
-%save('../rawData/dataFromWeb.mat','dataFromWeb');
-%%
-%read data from local
+
+%save('dataFromWeb.mat','dataFromWeb');
+%% Load data from local
 load('dataFromWeb.mat');
 
 %%
@@ -59,9 +55,8 @@ end
 y=actmat(:,1);
 
 setDataSize;
-save('.\rawData\dividedFormatedData_3_acty.mat',...
+
+save('formatedData.mat',...
     'train_atx','train_aty','train_atz','trainTarget',...
     'test_atx','test_aty','test_atz','testTarget', 'fs', 't');
-
     
-

@@ -7,11 +7,5 @@ LoadRawData;
 ExtractAllFeatures;
 
 %%
-% Train a neural network model on the features 
-% NeuralNetworkModel;
-
-%%
 % Train a Decision Tree model on the features 
-%DecisionTreeModel
-
-%%
+DecisionTreeModel

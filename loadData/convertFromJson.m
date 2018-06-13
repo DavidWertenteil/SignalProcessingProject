@@ -1,4 +1,4 @@
-%function convertFromJson
+%% Function convertFromJson
 
 % This file takes the default from-json table that saved in "dataFromWeb" and convert it to
 % more fitted matrix and save it in "myFormatData.mat"
@@ -27,6 +27,4 @@ for i = 1:numel(names)
     clear('idvec','accvec');
 end
 
-save('.\rawData\dataConvertedFromJson.mat','data','fs','actlabels');
-
-
+save('dataConvertedFromJson.mat','data','fs','actlabels');

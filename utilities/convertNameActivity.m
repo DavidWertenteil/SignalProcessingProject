@@ -20,10 +20,6 @@ elseif (number == 12)
     act_names = 2;
 else
     act_names = 3;
-%end
-%act_names = number;
-%if(number == 11 || number == 12)
-%    act_names = number - 2;
 end
 
 
