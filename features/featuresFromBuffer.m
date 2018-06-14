@@ -13,23 +13,17 @@ aby = filter(fhp,aty);
 abz = filter(fhp,atz);
 
 %%
-feat(1) = mean(atx);
-feat(2) = mean(aty);
-feat(3) = mean(atz);
+feat(1) = mean(aty);
+feat(2) = mean(atz);
 
 %%
-feat(4) = rms(abx);
-feat(5) = rms(aby);
-feat(6) = rms(abz);
+feat(3) = rms(aby);
 
 %%
-feat(7:9) = covFeatures(abx, fs);
-feat(10:12) = covFeatures(aby, fs);
-feat(13:15) = covFeatures(abz, fs);
+feat(4) = covFeatures(aby, fs);
 
 %%
-feat(16:27) = spectralPeaksFeatures(abx, fs);
-feat(28:39) = spectralPeaksFeatures(aby, fs);
+feat(5) = spectralPeaksFeatures(abx, fs);
 feat(40:51) = spectralPeaksFeatures(abz, fs);
 
 %%
@@ -40,7 +34,7 @@ feat(62:66) = spectralPowerFeatures(abz, fs);
 %%
 function feats = covFeatures(x, fs)
 
-feats = zeros(1,3);
+feats = zeros(1);
 
 [c, lags] = xcorr(x);
 
@@ -57,17 +51,13 @@ tcl = tc(locs);
 if(~isempty(tcl))   % else f1 already 0
     feats(1) = pks((end+1)/2);
 end
-% Features 2 and 3 - position and height of first peak 
-if(length(tcl) >= 3)   % else f2,f3 already 0
-    feats(2) = tcl((end+1)/2+1);
-    feats(3) = pks((end+1)/2+1);
-end
+
 %%
 function feats = spectralPeaksFeatures(x, fs)
 
 mindist_xunits = 0.3;
 
-feats = zeros(1,12);
+feats = zeros(1);
 
 N = 4096;
 minpkdist = floor(mindist_xunits/(fs/N));
@@ -91,9 +81,7 @@ end
 fpk = f(locs);
 
 % Features 1-6 positions of highest 6 peaks
-feats(1:length(pks)) = fpk;
-% Features 7-12 power levels of highest 6 peaks
-feats(7:7+length(pks)-1) = pks;
+feats(1) = fpk(6);
 
 function feats = spectralPowerFeatures(x, fs)
 
