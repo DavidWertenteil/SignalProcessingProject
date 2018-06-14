@@ -1,4 +1,4 @@
-function feat = featuresFromBuffer(atx, aty, atz, fs)
+function feat = featuresFromBuffer(aty, atz, fs)
 
 persistent fhp
 if(isempty(fhp))
@@ -6,9 +6,8 @@ if(isempty(fhp))
     fhp.PersistentMemory = false;
 end
 
-feat = zeros(1,66);
+feat = zeros(1,10);
 
-abx = filter(fhp,atx);
 aby = filter(fhp,aty);
 abz = filter(fhp,atz);
 
@@ -23,18 +22,17 @@ feat(3) = rms(aby);
 feat(4) = covFeatures(aby, fs);
 
 %%
-feat(5) = spectralPeaksFeatures(abx, fs);
-feat(40:51) = spectralPeaksFeatures(abz, fs);
+
+feat(5:6) = spectralPeaksFeatures(abz, fs);
 
 %%
-feat(52:56) = spectralPowerFeatures(abx, fs);
-feat(57:61) = spectralPowerFeatures(aby, fs);
-feat(62:66) = spectralPowerFeatures(abz, fs);
+feat(7:9) = spectralPowerFeaturesY(aby, fs);
+feat(10) = spectralPowerFeaturesZ(abz, fs);
 
 %%
 function feats = covFeatures(x, fs)
 
-feats = zeros(1);
+feats = 0;
 
 [c, lags] = xcorr(x);
 
@@ -49,15 +47,14 @@ tc = (1/fs)*lags;
 tcl = tc(locs);
 % Feature 1 - peak height at 0
 if(~isempty(tcl))   % else f1 already 0
-    feats(1) = pks((end+1)/2);
+    feats = pks((end+1)/2);
 end
-
 %%
 function feats = spectralPeaksFeatures(x, fs)
 
 mindist_xunits = 0.3;
 
-feats = zeros(1);
+feats = zeros(1,2);
 
 N = 4096;
 minpkdist = floor(mindist_xunits/(fs/N));
@@ -80,17 +77,30 @@ if(~isempty(pks))
 end
 fpk = f(locs);
 
-% Features 1-6 positions of highest 6 peaks
-feats(1) = fpk(6);
+if(length(fpk) >= 5)
+    feats(1) = fpk(5);
+end
+if(length(pks) >= 2)
+    feats(2) = pks(2);
+end
+%%
+function feats = spectralPowerFeaturesY(x, fs)
 
-function feats = spectralPowerFeatures(x, fs)
-
-feats = zeros(1,5);
+feats = zeros(1,3);
 
 edges = [0.5, 1.5, 5, 10, 15, 20];
 
 [p, f] = periodogram(x,[],4096,fs);
     
-for kband = 1:length(edges)-1
-    feats(kband) = sum(p( (f>=edges(kband)) & (f<edges(kband+1)) ));
+for kband = 2:length(edges)-2
+    feats(kband - 1) = sum(p( (f>=edges(kband)) & (f<edges(kband+1)) ));
 end
+%%
+function feats = spectralPowerFeaturesZ(x, fs)
+
+edges = [0.5, 1.5, 5, 10, 15, 20];
+
+[p, f] = periodogram(x,[],4096,fs);
+    
+feats = sum(p( (f>=edges(1)) & (f<edges(2)) ));
+

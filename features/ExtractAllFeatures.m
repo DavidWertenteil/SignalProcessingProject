@@ -1,18 +1,18 @@
 function ExtractAllFeatures
 
-load('formatedData.mat')
+load('../loadData/formatedData.mat')
 % Expect as many rows of features as number of available data buffers
-train = zeros(length(trainTarget),66);
-test = zeros(length(testTarget),66);
+train = zeros(length(trainTarget),10);
+test = zeros(length(testTarget),10);
 
 for n = 1:length(trainTarget)
     % Extract features for train data buffers
-    train(n,:) = featuresFromBuffer(train_atx(n,:), train_aty(n,:), train_atz(n,:), fs); 
+    train(n,:) = featuresFromBuffer(train_aty(n,:), train_atz(n,:), fs); 
 end
-
+%%
 for n = 1:length(testTarget)
     % Extract features for test data buffers
-    test(n,:) = featuresFromBuffer(test_atx(n,:), test_aty(n,:), test_atz(n,:), fs); 
+    test(n,:) = featuresFromBuffer(test_aty(n,:), test_atz(n,:), fs); 
 end
 
 % Save extracted features to a data file
@@ -25,59 +25,14 @@ save('features.mat','featTrain','featTest','trainTarget','testTarget','featlabel
 
 function featureNames = getFeatureNames
 
-featureNames(1,1) = {'TotalAccXMean'};
-featureNames(2,1) = {'TotalAccYMean'};%
-featureNames(3,1) = {'TotalAccZMean'};%
-featureNames(4,1) = {'BodyAccXRMS'};
-featureNames(5,1) = {'BodyAccYRMS'};%
-featureNames(6,1) = {'BodyAccZRMS'};
-featureNames(7,1) = {'BodyAccXCovZeroValue'};
-featureNames(8,1) = {'BodyAccXCovFirstPos'};
-featureNames(9,1) = {'BodyAccXCovFirstValue'};
-featureNames(10,1) = {'BodyAccYCovZeroValue'};%
-featureNames(11,1) = {'BodyAccYCovFirstPos'};
-featureNames(12,1) = {'BodyAccYCovFirstValue'};
-featureNames(13,1) = {'BodyAccZCovZeroValue'};
-featureNames(14,1) = {'BodyAccZCovFirstPos'};
-featureNames(15,1) = {'BodyAccZCovFirstValue'};
-featureNames(16,1) = {'BodyAccXSpectPos1'};
-featureNames(17,1) = {'BodyAccXSpectPos2'};
-featureNames(18,1) = {'BodyAccXSpectPos3'};
-featureNames(19,1) = {'BodyAccXSpectPos4'};
-featureNames(20,1) = {'BodyAccXSpectPos5'};
-featureNames(21,1) = {'BodyAccXSpectPos6'};%
-featureNames(22,1) = {'BodyAccXSpectVal1'};
-featureNames(23,1) = {'BodyAccXSpectVal2'};
-featureNames(24,1) = {'BodyAccXSpectVal3'};
-featureNames(25,1) = {'BodyAccXSpectVal4'};
-featureNames(26,1) = {'BodyAccXSpectVal5'};
-featureNames(27,1) = {'BodyAccXSpectVal6'};
-featureNames(28,1) = {'BodyAccYSpectPos1'};
-featureNames(29,1) = {'BodyAccYSpectPos2'};
-featureNames(30,1) = {'BodyAccYSpectPos3'};
-featureNames(31,1) = {'BodyAccYSpectPos4'};
-featureNames(32,1) = {'BodyAccYSpectPos5'};
-featureNames(33,1) = {'BodyAccYSpectPos6'};
-featureNames(34,1) = {'BodyAccYSpectVal1'};
-featureNames(35,1) = {'BodyAccYSpectVal2'};
-featureNames(36,1) = {'BodyAccYSpectVal3'};
-featureNames(37,1) = {'BodyAccYSpectVal4'};
-featureNames(38,1) = {'BodyAccYSpectVal5'};
-featureNames(39,1) = {'BodyAccYSpectVal6'};
-featureNames(40,1) = {'BodyAccZSpectPos1'};
-featureNames(41,1) = {'BodyAccZSpectPos2'};
-featureNames(42,1) = {'BodyAccZSpectPos3'};
-featureNames(43,1) = {'BodyAccZSpectPos4'};
-featureNames(44,1) = {'BodyAccZSpectPos5'};
-featureNames(45,1) = {'BodyAccZSpectPos6'};
-featureNames(46,1) = {'BodyAccZSpectVal1'};
-featureNames(47,1) = {'BodyAccZSpectVal2'};
-featureNames(48,1) = {'BodyAccZSpectVal3'};
-featureNames(49,1) = {'BodyAccZSpectVal4'};
-featureNames(50,1) = {'BodyAccZSpectVal5'};
-featureNames(51,1) = {'BodyAccZSpectVal6'};
-featureNames(52,1) = {'BodyAccXPowerBand1'};%
-featureNames(53,1) = {'BodyAccXPowerBand2'};
-featureNames(54,1) = {'BodyAccXPowerBand3'};%
-featureNames(55,1) = {'BodyAccXPowerBand4'};%
+featureNames(1,1) = {'TotalAccYMean'};%
+featureNames(2,1) = {'TotalAccZMean'};%
+featureNames(3,1) = {'BodyAccYRMS'};%
+featureNames(4,1) = {'BodyAccYCovZeroValue'};%
+featureNames(5,1) = {'BodyAccZSpectPos6'};%
+featureNames(6,1) = {'BodyAccZSpectVal3'};%
+featureNames(7,1) = {'BodyAccYPowerBand2'};%
+featureNames(8,1) = {'BodyAccYPowerBand3'};%
+featureNames(9,1) = {'BodyAccYPowerBand4'};%
+featureNames(10,1) = {'BodyAccZPowerBand4'};%
 
