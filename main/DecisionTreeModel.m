@@ -21,7 +21,7 @@ randomForest = TreeBagger(numberOfTrees, Xtrain, Ytrain,...
     'OOBPrediction','on','Method', 'classification');
 
 % Save the final module
-save('..\activityDetection.mat','randomForest');
+save('activityDetection.mat','randomForest');
 
 % Predict confusion matrix
 pred = randomForest.predict(Xtest);
@@ -30,3 +30,5 @@ pred = str2double(pred);
 
 % Display the confusion matrix
 matrix
+
+clear

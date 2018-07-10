@@ -1,6 +1,6 @@
 function ExtractAllFeatures
 
-load('../loadData/formatedData.mat')
+load('formatedData.mat')
 % Expect as many rows of features as number of available data buffers
 train = zeros(length(trainTarget),10);
 test = zeros(length(testTarget),10);
@@ -21,7 +21,7 @@ featTest = test;
 featlabels = getFeatureNames;
 
 save('features.mat','featTrain','featTest','trainTarget','testTarget','featlabels')
-
+clear
 
 function featureNames = getFeatureNames
 
